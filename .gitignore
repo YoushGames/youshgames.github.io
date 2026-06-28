@@ -1,0 +1,7 @@
+# OS / editor noise (this is a static-site repo — nothing else to ignore)
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+.vscode/
+.idea/
