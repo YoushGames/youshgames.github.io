@@ -1,0 +1,4 @@
+# GitHub Pages (Jekyll) would otherwise publish these docs as pages on the live site.
+exclude:
+  - CLAUDE.md
+  - GAME_PAGES.md

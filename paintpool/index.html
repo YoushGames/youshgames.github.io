@@ -5,97 +5,212 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Privacy Policy — Paint Pool</title>
 <meta name="description" content="Privacy policy for Paint Pool by Yoush Games. The app collects no data and works fully offline.">
-<link rel="icon" href="/favicon.ico" sizes="any">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#efe7d6">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preload" href="../assets/fonts/lilitaone-400.woff2" as="font" type="font/woff2" crossorigin>
 <style>
+  /* The game's own fonts (SIL Open Font License, see /assets/fonts/OFL_*.txt), self-hosted */
+  @font-face{font-family:"Lilita One";font-weight:400;font-display:swap;src:url("../assets/fonts/lilitaone-400.woff2") format("woff2")}
+  @font-face{font-family:"Varela Round";font-weight:400;font-display:swap;src:url("../assets/fonts/varelaround-400.woff2") format("woff2")}
+
   :root{
-    --paper:#efe7d6; --paper2:#e7dcc6; --card:#fbf6ea; --ink:#35302a;
-    --ink-soft:#6a5f50; --line:#e0d4bd; --teal:#2f9e9b; --red:#e2503d;
+    color-scheme:light;
+    --paper:#efe7d6; --cream:#fbf6ea; --slab:#f7efdb; --line:#e3d6bc;
+    --ink:#35302a; --ink-soft:#6a5f50;
+    --red:#e04a35; --orange:#f0a23a; --green:#6aaa4a; --teal:#2f9e9b; --blue:#2f62c4; --purple:#9a5bb8;
+    --display:"Lilita One","Arial Rounded MT Bold","Trebuchet MS",sans-serif;
   }
   *{box-sizing:border-box}
   html{-webkit-text-size-adjust:100%}
   body{
-    margin:0; padding:32px 18px 64px;
-    background:
-      radial-gradient(120% 80% at 50% -10%, #f4eedf 0%, var(--paper) 55%, var(--paper2) 100%) fixed;
-    color:var(--ink);
-    font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    margin:0; padding:24px 16px 56px; background:var(--paper); color:var(--ink);
+    font:16.5px/1.7 "Varela Round",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   }
-  .wrap{max-width:680px;margin:0 auto}
-  .home{display:inline-block;margin:0 auto 16px;color:var(--ink-soft);font-size:13.5px;text-decoration:none;border-bottom:1px solid transparent}
-  .home:hover{color:var(--ink);border-bottom-color:var(--line)}
-  header{text-align:center;margin-bottom:26px}
-  .dots{display:flex;gap:9px;justify-content:center;margin-bottom:14px}
-  .dots i{width:16px;height:16px;border-radius:50%;display:block;box-shadow:inset 0 -2px 3px rgba(0,0,0,.18)}
-  h1{font-size:30px;margin:.1em 0 .15em;letter-spacing:.2px}
-  .sub{color:var(--ink-soft);font-size:14px;margin:0}
+  /* Gouache paper from the game; a fixed layer so it also stays put on iOS */
+  body::before{
+    content:""; position:fixed; inset:0; z-index:-1;
+    background:url("img/paper.jpg") center / cover no-repeat, var(--paper);
+  }
+  .wrap{max-width:700px; margin:0 auto}
+
+  .home{
+    display:inline-block; margin-bottom:8px; color:var(--ink-soft); text-decoration:none;
+    font:15px/1 var(--display); letter-spacing:.03em; transition:color .2s;
+  }
+  .home:hover{color:var(--teal)}
+
+  /* Paint blob: the game's white sprite tinted with a colour (multiply), cut to the sprite's shape */
+  .blob{
+    --c:var(--teal); --img:url("img/blob-round.webp");
+    display:block; background:var(--img) center / contain no-repeat, var(--c);
+    background-blend-mode:multiply;
+    -webkit-mask:var(--img) center / contain no-repeat; mask:var(--img) center / contain no-repeat;
+  }
+  .sq{--img:url("img/blob-square.webp")}
+  .splat{--img:url("img/splat.webp")}
+
+  header{position:relative; text-align:center; padding:6px 0 4px; margin-bottom:26px; animation:rise .8s ease-out both}
+  h1{margin:0; line-height:0}
+  .title{width:min(400px,78vw); height:auto; filter:drop-shadow(0 6px 10px rgba(80,60,30,.18))}
+  .drift{position:absolute; animation:bob 6s ease-in-out infinite}
+  .d1{--c:var(--red);    width:62px; height:62px; left:2%;  top:22%}
+  .d2{--c:var(--orange); width:44px; height:44px; right:4%; top:10%; animation-delay:-2s}
+  .d3{--c:var(--purple); width:52px; height:52px; right:1%; top:52%; animation-delay:-4s}
+  .d4{--c:var(--blue);   width:40px; height:40px; left:8%;  top:64%; animation-delay:-1s}
+  .d5{--c:var(--green);  width:30px; height:30px; left:18%; top:4%;  animation-delay:-3s}
+  .sub{margin:14px 0 14px; font:clamp(26px,7vw,32px)/1.1 var(--display); color:var(--ink); letter-spacing:.02em}
+  .meta{display:flex; flex-wrap:wrap; gap:10px; justify-content:center}
+  .chip{
+    padding:7px 16px; border-radius:999px; background:var(--slab); color:var(--ink-soft); font-size:14px;
+    box-shadow:inset 0 -3px 0 rgba(140,110,60,.2),inset 0 1px 0 #fff,0 3px 8px -3px rgba(80,60,30,.25);
+  }
+  .chip b{font-family:var(--display); font-weight:400; color:var(--ink); letter-spacing:.02em}
+
+  /* Cream paint slab, like the game's buttons */
   .card{
-    background:var(--card);border:1px solid var(--line);border-radius:20px;
-    padding:26px 26px 30px;box-shadow:0 10px 30px rgba(80,60,30,.08);
+    position:relative; padding:30px 30px 34px; border-radius:28px;
+    background:rgba(251,246,234,.94); border:1px solid var(--line);
+    box-shadow:inset 0 2px 0 #fff,inset 0 -6px 0 rgba(140,110,60,.1),0 22px 44px -22px rgba(80,60,30,.45);
+    animation:rise .8s .12s ease-out both;
   }
-  h2{font-size:18px;margin:26px 0 8px;color:var(--ink)}
-  h2:first-of-type{margin-top:4px}
+  .intro{display:flex; gap:18px; align-items:center; margin-bottom:6px}
+  .icon{flex:none; width:76px; height:76px; border-radius:18px; box-shadow:0 0 0 1px var(--line),0 8px 18px -8px rgba(80,60,30,.45)}
+  .lead{font-size:18px; margin:0}
+
+  h2{
+    display:flex; align-items:center; gap:12px;
+    margin:32px 0 10px; font:24px/1.15 var(--display); font-weight:400; letter-spacing:.01em; color:var(--ink);
+  }
+  h2 .blob{flex:none; width:26px; height:26px}
+  section:nth-of-type(6n+1) h2 .blob{--c:var(--red)}
+  section:nth-of-type(6n+2) h2 .blob{--c:var(--orange)}
+  section:nth-of-type(6n+3) h2 .blob{--c:var(--green)}
+  section:nth-of-type(6n+4) h2 .blob{--c:var(--teal)}
+  section:nth-of-type(6n+5) h2 .blob{--c:var(--blue)}
+  section:nth-of-type(6n)   h2 .blob{--c:var(--purple)}
+
   p{margin:0 0 12px}
-  .lead{font-size:17px}
   strong{color:var(--ink)}
-  .none{color:var(--red);font-weight:700}
-  a{color:var(--teal);text-decoration:none;border-bottom:1px solid rgba(47,158,155,.4)}
+
+  /* "None." as a big paint swatch */
+  .none{display:flex; align-items:center; gap:18px; margin:6px 0 14px}
+  .swatch{position:relative; flex:none; width:116px; height:110px; display:grid; place-items:center}
+  .swatch .blob{position:absolute; inset:0; --c:var(--teal); background-size:100% 100%; -webkit-mask-size:100% 100%; mask-size:100% 100%}
+  .swatch span:last-child{position:relative; font:26px/1 var(--display); color:#fff; letter-spacing:.03em; text-shadow:0 2px 0 rgba(0,0,0,.2)}
+  .none p{margin:0}
+
+  ul.stored{list-style:none; margin:4px 0 12px; padding:0; display:flex; flex-wrap:wrap; gap:8px}
+  ul.stored li{
+    padding:5px 13px; border-radius:999px; background:var(--slab); font-size:14.5px;
+    box-shadow:inset 0 -2px 0 rgba(140,110,60,.16),inset 0 1px 0 #fff;
+  }
+
+  a{color:var(--teal); text-decoration:none; border-bottom:2px solid rgba(47,158,155,.35); transition:border-color .2s}
   a:hover{border-bottom-color:var(--teal)}
-  .meta{display:flex;flex-wrap:wrap;gap:6px 18px;justify-content:center;color:var(--ink-soft);font-size:13.5px}
-  footer{text-align:center;color:var(--ink-soft);font-size:12.5px;margin-top:24px;letter-spacing:.12em;text-transform:uppercase}
-  hr{border:none;border-top:1px solid var(--line);margin:22px 0}
+  em{font-style:normal; color:var(--ink)}
+
+  footer{margin-top:32px; text-align:center; animation:rise .8s .24s ease-out both}
+  footer a{border:0; display:inline-flex; flex-direction:column; align-items:center; gap:8px; color:var(--ink-soft); font:14px/1 var(--display); letter-spacing:.04em}
+  footer a:hover{color:var(--ink)}
+  footer img{width:84px; height:auto}
+
+  @keyframes rise{from{opacity:0; transform:translateY(10px)} to{opacity:1; transform:none}}
+  @keyframes bob{0%,100%{transform:translateY(0) rotate(0)} 50%{transform:translateY(-8px) rotate(6deg)}}
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation:none !important; transition:none !important}
+  }
+  @media (max-width:520px){
+    .card{padding:24px 18px 28px; border-radius:22px}
+    .intro{flex-direction:column; text-align:center}
+    .d1{width:40px; height:40px; left:-3%; top:40%} .d3{width:38px; height:38px; right:-2%}
+    .d2{width:32px; height:32px} .d4{width:30px; height:30px; left:0} .d5{display:none}
+    .none{flex-direction:column; text-align:center}
+    h2{font-size:22px}
+  }
 </style>
 </head>
 <body>
   <div class="wrap">
-    <div style="text-align:center"><a class="home" href="../">&larr; Yoush Games</a></div>
+    <a class="home" href="../">&larr; Yoush Games</a>
     <header>
-      <div class="dots">
-        <i style="background:#e2503d"></i><i style="background:#f0a23a"></i>
-        <i style="background:#6baa4e"></i><i style="background:#2f9e9b"></i>
-        <i style="background:#3f6fc2"></i><i style="background:#9a5bb8"></i>
+      <span class="blob drift d1" aria-hidden="true"></span>
+      <span class="blob sq drift d2" aria-hidden="true"></span>
+      <span class="blob drift d3" aria-hidden="true"></span>
+      <span class="blob sq drift d4" aria-hidden="true"></span>
+      <span class="blob splat drift d5" aria-hidden="true"></span>
+      <h1><img class="title" src="img/title.webp" width="784" height="636" alt="Paint Pool"></h1>
+      <p class="sub">Privacy Policy</p>
+      <div class="meta">
+        <span class="chip">Effective <b>22 October 2026</b></span>
+        <span class="chip">Publisher <b>Yoush Games, Denmark</b></span>
       </div>
-      <h1>Privacy Policy</h1>
-      <p class="sub">Paint Pool &middot; by Yoush Games</p>
     </header>
 
     <main class="card">
-      <div class="meta">
-        <span><strong>Effective date:</strong> 27 June 2026</span>
-        <span><strong>Publisher:</strong> Yoush Games</span>
+      <div class="intro">
+        <img class="icon" src="img/icon.webp" width="192" height="192" alt="">
+        <p class="lead">Paint Pool (&ldquo;the app&rdquo;) is designed to respect your privacy completely.</p>
       </div>
-      <hr>
 
-      <p class="lead">Paint Pool (&ldquo;the app&rdquo;) is designed to respect your privacy completely.</p>
+      <section>
+        <h2><span class="blob" aria-hidden="true"></span>Data we collect</h2>
+        <div class="none">
+          <div class="swatch" aria-hidden="true"><span class="blob sq"></span><span>None.</span></div>
+          <p>The app does not collect, transmit, or share any personal or sensitive user data. It contains
+          no analytics, no advertising, no third-party SDKs, no account system, and requests no Android
+          permissions.</p>
+        </div>
+      </section>
 
-      <h2>Data we collect</h2>
-      <p><span class="none">None.</span> The app does not collect, store, transmit, or share any
-      personal or sensitive user data. It contains no analytics, no advertising, no third-party
-      SDKs, no account system, and requests no Android permissions.</p>
+      <section>
+        <h2><span class="blob sq" aria-hidden="true"></span>Data stored on your device</h2>
+        <p>To remember your progress, the app saves a small amount of game data in Android&rsquo;s private
+        app storage, <strong>on your device only</strong>:</p>
+        <ul class="stored">
+          <li>High scores</li><li>Best combo</li><li>Games played</li><li>Coins</li>
+          <li>Unlocked &amp; chosen skins</li><li>Background</li><li>Difficulty</li>
+          <li>Sound &amp; music settings</li><li>Whether you&rsquo;ve seen the tutorial</li>
+        </ul>
+        <p>We never receive this data. It is deleted from your device when you uninstall the app.</p>
+      </section>
 
-      <h2>Data stored on your device</h2>
-      <p>The app saves a small amount of gameplay data <strong>locally on your device only</strong>
-      (your high score, best combo, games played, and your chosen pool skin, background, and
-      sound/music preferences) using Android&rsquo;s private app storage. This data never leaves
-      your device and is removed if you uninstall the app.</p>
+      <section>
+        <h2><span class="blob" aria-hidden="true"></span>Android backup</h2>
+        <p>If you have Android backup turned on, Android may include this game data in your device
+        backup to your Google account, or copy it to a new phone, so your progress can be restored.
+        This is handled by Google under your own Google account settings. We never receive or see
+        it. You can turn it off in your device settings (on most phones under
+        <em>Settings &rarr; Google &rarr; Backup</em>).</p>
+      </section>
 
-      <h2>Network</h2>
-      <p>The app does not use the internet and works fully offline.</p>
+      <section>
+        <h2><span class="blob sq" aria-hidden="true"></span>Network</h2>
+        <p>The app does not use the internet and works fully offline.</p>
+      </section>
 
-      <h2>Children</h2>
-      <p>The app is suitable for all ages. Because it collects no data, it complies with
-      children&rsquo;s privacy requirements (e.g., COPPA / GDPR-K).</p>
+      <section>
+        <h2><span class="blob" aria-hidden="true"></span>Children</h2>
+        <p>The app is suitable for all ages. Because it collects no personal data from anyone, it
+        collects none from children either (relevant to COPPA and the GDPR&rsquo;s rules for children).</p>
+      </section>
 
-      <h2>Changes</h2>
-      <p>If this policy changes, the updated version will be posted at the same location with a
-      new effective date.</p>
+      <section>
+        <h2><span class="blob sq" aria-hidden="true"></span>Changes</h2>
+        <p>If this policy changes, the updated version will be posted at the same location with a
+        new effective date.</p>
+      </section>
 
-      <h2>Contact</h2>
-      <p>Questions about this policy:
-      <a href="mailto:youshgamestudio@gmail.com">youshgamestudio@gmail.com</a></p>
+      <section>
+        <h2><span class="blob" aria-hidden="true"></span>Contact</h2>
+        <p>Questions about this policy:
+        <a href="mailto:youshgamestudio@gmail.com">youshgamestudio@gmail.com</a></p>
+      </section>
     </main>
 
-    <footer>Yoush Games</footer>
+    <footer>
+      <a href="../"><img src="../assets/yoush-logo.png" width="720" height="444" alt="">A Yoush Games title</a>
+    </footer>
   </div>
 </body>
 </html>

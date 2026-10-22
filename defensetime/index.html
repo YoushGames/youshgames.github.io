@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy Policy — Defense Time</title>
+<meta name="description" content="Privacy policy for Defense Time by Yoush Games: what data the game and its ad, analytics and leaderboard partners collect, and how to control it.">
+<meta name="theme-color" content="#020a0b">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preload" href="../assets/fonts/rajdhani-700.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+  /* Rajdhani (SIL Open Font License, see /assets/fonts/OFL_Rajdhani.txt), self-hosted */
+  @font-face{font-family:"Rajdhani";font-weight:500;font-display:swap;src:url("../assets/fonts/rajdhani-500.woff2") format("woff2")}
+  @font-face{font-family:"Rajdhani";font-weight:600;font-display:swap;src:url("../assets/fonts/rajdhani-600.woff2") format("woff2")}
+  @font-face{font-family:"Rajdhani";font-weight:700;font-display:swap;src:url("../assets/fonts/rajdhani-700.woff2") format("woff2")}
+
+  :root{
+    color-scheme:dark;
+    --bg:#020a0b; --panel:rgba(3,17,18,.86); --cell:rgba(79,227,214,.05);
+    --cyan:#4fe3d6; --cyan-dim:rgba(79,227,214,.38); --cyan-faint:rgba(79,227,214,.16);
+    --white:#f2fffe; --text:#d3e7e5; --text-soft:#8fb1ae;
+    --hud:"Rajdhani","Agency FB","Arial Narrow",sans-serif;
+    --cut:18px;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; padding:28px 16px 56px; background:var(--bg); color:var(--text);
+    font:16px/1.7 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  /* In-game hexagon backdrop; a fixed layer so it also stays put on iOS */
+  body::before{
+    content:""; position:fixed; inset:0; z-index:-1;
+    background:
+      linear-gradient(180deg, rgba(2,10,11,.35) 0%, rgba(2,10,11,.7) 45%, rgba(2,10,11,.92) 100%),
+      url("img/bg.jpg") center top / cover no-repeat, var(--bg);
+  }
+  .wrap{max-width:720px; margin:0 auto}
+
+  .home{
+    display:inline-flex; align-items:center; gap:8px; margin-bottom:18px;
+    font:600 14px/1 var(--hud); letter-spacing:.18em; text-transform:uppercase;
+    color:var(--text-soft); text-decoration:none; transition:color .2s;
+  }
+  .home:hover{color:var(--cyan)}
+
+  header{text-align:center; margin-bottom:30px; animation:rise .8s ease-out both}
+  h1{margin:0; line-height:0}
+  .logo{
+    width:min(500px,90vw); height:auto;
+    animation:glow 5s ease-in-out infinite;
+  }
+  .sub{
+    margin:6px 0 16px; color:var(--white);
+    font:700 clamp(18px,5vw,22px)/1.2 var(--hud); letter-spacing:.42em; text-transform:uppercase;
+    padding-left:.42em;
+  }
+  .meta{display:flex; flex-wrap:wrap; gap:10px; justify-content:center}
+  .chip{
+    font:600 14px/1 var(--hud); letter-spacing:.08em; text-transform:uppercase;
+    color:var(--text-soft); padding:9px 14px;
+    background:var(--cyan-faint);
+    clip-path:polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px);
+  }
+  .chip b{color:var(--cyan); font-weight:700}
+
+  /* HUD frame: chamfered panel with a 1px glowing edge and hexagon corner nodes */
+  .hud{position:relative; animation:rise .8s .12s ease-out both}
+  .frame{
+    padding:1px;
+    background:linear-gradient(160deg,var(--cyan-dim),rgba(79,227,214,.1) 40%,rgba(79,227,214,.1) 60%,var(--cyan-dim));
+    clip-path:polygon(var(--cut) 0,100% 0,100% calc(100% - var(--cut)),calc(100% - var(--cut)) 100%,0 100%,0 var(--cut));
+  }
+  .card{
+    padding:30px 30px 34px;
+    background:var(--panel);
+    -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px);
+    clip-path:polygon(var(--cut) 0,100% 0,100% calc(100% - var(--cut)),calc(100% - var(--cut)) 100%,0 100%,0 var(--cut));
+  }
+  .hud::before,.hud::after{
+    content:""; position:absolute; width:22px; height:19px;
+    background:radial-gradient(circle,#effffd 0%,#8ff2e9 45%,#2fb6ad 100%);
+    clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%);
+  }
+  .hud::before{top:-3px; left:-3px}
+  .hud::after{bottom:-3px; right:-3px}
+
+  .intro{display:flex; gap:18px; align-items:center; margin-bottom:6px}
+  .icon{
+    flex:none; width:72px; height:72px; border-radius:16px;
+    box-shadow:0 0 0 1px var(--cyan-dim),0 0 22px rgba(79,227,214,.25);
+  }
+  .lead{font-size:17px; color:var(--white); margin:0}
+
+  h2{
+    display:flex; align-items:center; gap:12px;
+    margin:34px 0 12px; color:var(--cyan);
+    font:700 19px/1.2 var(--hud); letter-spacing:.14em; text-transform:uppercase;
+  }
+  h2::before{
+    content:""; flex:none; width:12px; height:11px; background:var(--cyan);
+    clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%);
+  }
+  h2::after{content:""; flex:1; height:1px; background:linear-gradient(90deg,var(--cyan-dim),transparent)}
+
+  p{margin:0 0 12px}
+  strong{color:var(--white)}
+  em{color:var(--white); font-style:normal}
+  ul{list-style:none; margin:0 0 12px; padding:0}
+  li{position:relative; padding-left:24px; margin:0 0 8px}
+  li::before{
+    content:""; position:absolute; left:2px; top:.62em; width:9px; height:8px;
+    background:var(--cyan-dim);
+    clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%);
+  }
+
+  a{color:var(--cyan); text-decoration:none; border-bottom:1px solid var(--cyan-dim); transition:border-color .2s,color .2s}
+  a:hover{color:var(--white); border-bottom-color:var(--cyan)}
+
+  .partner{
+    position:relative; margin:0 0 10px; padding:14px 16px 14px 18px;
+    background:var(--cell); border-left:2px solid var(--cyan);
+    clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,0 100%);
+  }
+  .p-name{font:700 17px/1.3 var(--hud); letter-spacing:.06em; color:var(--white)}
+  .partner p{margin:4px 0 0; font-size:15px; color:var(--text-soft)}
+
+  footer{
+    margin-top:34px; text-align:center; animation:rise .8s .24s ease-out both;
+    font:600 13px/1 var(--hud); letter-spacing:.24em; text-transform:uppercase; color:var(--text-soft);
+  }
+  footer a{border:0; display:inline-flex; flex-direction:column; align-items:center; gap:10px; color:inherit}
+  footer a:hover{color:var(--cyan)}
+  footer img{width:84px; height:auto; opacity:.9}
+
+  @keyframes rise{from{opacity:0; transform:translateY(10px)} to{opacity:1; transform:none}}
+  @keyframes glow{
+    0%,100%{filter:drop-shadow(0 0 6px rgba(79,227,214,.15))}
+    50%{filter:drop-shadow(0 0 18px rgba(79,227,214,.45))}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation:none !important; transition:none !important}
+  }
+  @media (max-width:480px){
+    body{padding-top:20px}
+    .card{padding:24px 18px 28px}
+    .intro{flex-direction:column; text-align:center}
+    .icon{width:64px; height:64px}
+    h2{font-size:17px; letter-spacing:.1em}
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <a class="home" href="../">&larr; Yoush Games</a>
+    <header>
+      <h1><img class="logo" src="img/logo.webp" width="900" height="374" alt="Defense Time"></h1>
+      <p class="sub">Privacy Policy</p>
+      <div class="meta">
+        <span class="chip">Effective <b>22 October 2026</b></span>
+        <span class="chip">Publisher <b>Yoush Games, Denmark</b></span>
+      </div>
+    </header>
+
+    <div class="hud">
+      <div class="frame">
+        <main class="card">
+          <div class="intro">
+            <img class="icon" src="img/icon.webp" width="196" height="196" alt="">
+            <p class="lead">Defense Time (&ldquo;the app&rdquo;) is a free game supported by ads. This page
+            explains what data the app and its service partners collect, why, and how you can control it.</p>
+          </div>
+
+          <h2>Summary</h2>
+          <ul>
+            <li>We do <strong>not</strong> ask for your name, email, contacts, photos, or location.</li>
+            <li>There is no account to create. The app signs you in anonymously so the online leaderboard works.</li>
+            <li>The app shows <strong>optional rewarded video ads</strong>, which you choose to watch to get extra
+            health or ammo. Our ad partners use your device&rsquo;s Advertising ID.</li>
+            <li>The app sends anonymous gameplay analytics. You can turn this off and request deletion
+            from the main menu.</li>
+          </ul>
+
+          <h2>Data collected</h2>
+          <p><strong>Device and technical data:</strong> device model, operating system and version, language,
+          app version, and your IP address (used, among other things, to estimate your country).</p>
+          <p><strong>Identifiers:</strong> your device&rsquo;s Advertising ID (used by our ad partners), plus
+          random identifiers created for this app installation and for your anonymous player profile.</p>
+          <p><strong>Gameplay data:</strong> game sessions, the length of a game and your score.</p>
+          <p><strong>Leaderboard data:</strong> your score, your rank and a randomly generated player name.
+          These are <strong>visible to other players</strong> on the leaderboard.</p>
+          <p><strong>Ad data:</strong> which ads were loaded, shown and clicked.</p>
+
+          <h2>How the data is used</h2>
+          <ul>
+            <li>To show rewarded ads and give you the reward. Our ad partners may use the data to measure ads,
+            to prevent fraud and, where permitted, to show ads that are personalised to you.</li>
+            <li>To run the online leaderboard.</li>
+            <li>To understand how the game is played, so we can fix problems and improve it.</li>
+          </ul>
+          <p>We do not sell your data. We do not use it for anything other than the purposes above.</p>
+
+          <h2>Service partners</h2>
+          <p>The app uses the following third-party services, which process data as described in their own
+          policies:</p>
+          <div class="partner">
+            <div class="p-name">Unity LevelPlay (ironSource) and Unity Ads</div>
+            <p>Ad mediation and video ads. These receive device data, the Advertising ID, the IP address and ad interactions.</p>
+          </div>
+          <div class="partner">
+            <div class="p-name">Unity Analytics</div>
+            <p>Gameplay analytics. This receives device data, app identifiers and gameplay events.</p>
+          </div>
+          <div class="partner">
+            <div class="p-name">Unity Authentication and Unity Leaderboards</div>
+            <p>Anonymous sign-in and the online leaderboard. These receive a player identifier, your score and the player name.</p>
+          </div>
+          <p>All of these are provided by Unity Technologies. See the
+          <a href="https://unity.com/legal/game-player-and-app-user-privacy-policy">Unity Game Player and App User Privacy Policy</a>
+          and the <a href="https://unity.com/legal/privacy-policy">Unity Privacy Policy</a>. Data may be processed
+          outside your country, including in the United States, under the safeguards described in those policies.</p>
+
+          <h2>Your choices</h2>
+          <p><strong>Analytics:</strong> In the main menu, open the privacy panel and turn off the data-collection
+          toggle to stop analytics. Use the <strong>delete</strong> button to ask Unity to erase the analytics
+          data already collected from your device.</p>
+          <p><strong>Personalised ads:</strong> You can reset or delete your Advertising ID, or opt out of ad
+          personalisation, in your device settings. On most Android phones this is under
+          <em>Settings &rarr; Privacy &rarr; Ads</em> or <em>Settings &rarr; Google &rarr; Ads</em>. Ads may also
+          show a privacy icon that you can use to opt out of personalised ads from that ad network. Watching
+          ads is always optional.</p>
+          <p><strong>Leaderboard and other data:</strong> Email us and we will delete your leaderboard entry
+          and any other data we can link to your player profile.</p>
+          <p><strong>Local data:</strong> Your high score and settings are stored on your device. They are
+          removed when you uninstall the app. If you have Android backup turned on, Android may include
+          them in your device backup to your Google account, or copy them to a new phone. This is handled
+          by Google under your own account settings, and we never see it.</p>
+
+          <h2>Your rights (EU / EEA / UK)</h2>
+          <p>Yoush Games is the data controller. Our legal basis for analytics and leaderboards is our
+          legitimate interest in running and improving the game. You can object at any time by using the
+          choices above. Ad personalisation relies on your consent where the law requires it. You have the
+          right to access, correct, delete, restrict or port your data, and to object to its processing. To
+          use these rights, email us.</p>
+
+          <h2>Retention</h2>
+          <p>Leaderboard entries are kept while the leaderboard is active, or until you ask us to delete them.
+          Analytics and ad data are kept by Unity for the periods set out in its policies. We do not keep
+          any other copies.</p>
+
+          <h2>Children</h2>
+          <p>The app is not directed at children under 13. We do not knowingly collect personal data from
+          them. If you believe a child has used the app and you want their data removed, contact us and we
+          will delete it.</p>
+
+          <h2>Security</h2>
+          <p>Data is sent to our service partners over encrypted connections. No method of transmission or
+          storage is completely secure, but we and our partners take reasonable steps to protect it.</p>
+
+          <h2>Changes</h2>
+          <p>If this policy changes, the updated version will be posted at the same location with a
+          new effective date.</p>
+
+          <h2>Contact</h2>
+          <p>Questions or data requests:
+          <a href="mailto:youshgamestudio@gmail.com">youshgamestudio@gmail.com</a></p>
+        </main>
+      </div>
+    </div>
+
+    <footer>
+      <a href="../"><img src="../assets/yoush-logo.png" width="720" height="444" alt="">A Yoush Games title</a>
+    </footer>
+  </div>
+</body>
+</html>

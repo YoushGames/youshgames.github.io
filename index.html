@@ -5,62 +5,134 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Yoush Games</title>
 <meta name="description" content="Yoush Games — handcrafted mobile games. Privacy policies for our titles.">
+<meta name="theme-color" content="#0a0504">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <style>
   :root{
-    --paper:#efe7d6; --paper2:#e7dcc6; --card:#fbf6ea; --ink:#35302a;
-    --ink-soft:#6a5f50; --line:#e0d4bd; --teal:#2f9e9b; --red:#e2503d; --orange:#f0772a;
+    color-scheme:dark;
+    --bg:#060303; --ember:#3d1009; --red:#e5161a; --orange:#ec5a12;
+    --ink:#f6ece6; --ink-soft:#a8958c; --ink-faint:#6e5d55;
+    --card:rgba(255,255,255,.035); --line:rgba(236,90,18,.18);
   }
   *{box-sizing:border-box}
   html{-webkit-text-size-adjust:100%}
   body{
-    margin:0; padding:48px 18px 64px; min-height:100vh;
-    background:radial-gradient(120% 80% at 50% -10%, #f4eedf 0%, var(--paper) 55%, var(--paper2) 100%) fixed;
+    margin:0; min-height:100vh; padding:56px 16px 40px;
+    display:flex; flex-direction:column; align-items:center;
+    background-color:var(--bg);
+    background-image:radial-gradient(70% 55% at 50% 22%, var(--ember) 0%, #1a0705 42%, var(--bg) 78%);
+    background-attachment:fixed;
     color:var(--ink);
     font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   }
-  .wrap{max-width:640px;margin:0 auto;text-align:center}
-  header{margin-bottom:34px}
-  .brand{
-    font-size:clamp(34px,9vw,52px);font-weight:800;letter-spacing:1px;margin:0;
-    background:linear-gradient(95deg,var(--red),var(--orange));
-    -webkit-background-clip:text;background-clip:text;color:transparent;
+  .wrap{width:100%; max-width:560px; flex:1; display:flex; flex-direction:column}
+
+  header{text-align:center; margin-bottom:44px; animation:rise .9s ease-out both}
+  h1{margin:0; line-height:0}
+  .logo{
+    width:min(340px,72vw); height:auto;
+    filter:drop-shadow(0 0 28px rgba(229,40,20,.35));
+    animation:glow 6s ease-in-out infinite;
   }
-  .tag{color:var(--ink-soft);font-size:16px;margin:10px 0 0;letter-spacing:.2px}
-  .card{
-    background:var(--card);border:1px solid var(--line);border-radius:20px;
-    padding:24px;box-shadow:0 10px 30px rgba(80,60,30,.08);text-align:left;
+  .tag{
+    margin:22px 0 0; color:var(--ink-soft);
+    font-size:13px; letter-spacing:.32em; text-transform:uppercase;
   }
-  h2{font-size:14px;text-transform:uppercase;letter-spacing:.14em;color:var(--ink-soft);margin:2px 0 16px}
+
+  main{animation:rise .9s .15s ease-out both}
+  h2{
+    display:flex; align-items:center; gap:14px;
+    margin:0 0 16px; color:var(--ink-faint);
+    font-size:12px; font-weight:600; letter-spacing:.24em; text-transform:uppercase;
+  }
+  h2::before,h2::after{content:""; flex:1; height:1px; background:linear-gradient(90deg,transparent,var(--line),transparent)}
+
+  .games{list-style:none; margin:0; padding:0; display:grid; gap:12px}
   .game{
-    display:flex;align-items:center;justify-content:space-between;gap:14px;
-    padding:16px 18px;border:1px solid var(--line);border-radius:14px;background:#fffdf7;
+    position:relative; display:flex; align-items:center; gap:16px;
+    padding:16px 18px; border-radius:16px;
+    background:var(--card); border:1px solid var(--line);
+    color:inherit; text-decoration:none;
+    transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease, background .25s ease;
   }
-  .game + .game{margin-top:12px}
-  .g-name{font-weight:700;font-size:18px}
-  .game a{
-    color:var(--teal);text-decoration:none;font-weight:600;font-size:14.5px;white-space:nowrap;
-    border-bottom:1px solid rgba(47,158,155,.4)
+  .game:hover,.game:focus-visible{
+    transform:translateY(-2px);
+    border-color:rgba(236,90,18,.55);
+    background:rgba(236,90,18,.06);
+    box-shadow:0 10px 34px -12px rgba(229,40,20,.55);
+    outline:none;
   }
-  .game a:hover{border-bottom-color:var(--teal)}
-  footer{margin-top:26px;color:var(--ink-soft);font-size:12.5px}
-  footer a{color:var(--ink-soft)}
+  .g-icon{
+    flex:none; width:52px; height:52px; border-radius:13px; object-fit:cover;
+    box-shadow:0 0 0 1px rgba(255,255,255,.08),0 6px 16px -6px rgba(0,0,0,.8);
+    transition:box-shadow .25s ease;
+  }
+  .game:hover .g-icon,.game:focus-visible .g-icon{
+    box-shadow:0 0 0 1px rgba(236,90,18,.45),0 6px 20px -6px rgba(229,40,20,.6);
+  }
+  .g-text{flex:1; min-width:0}
+  .g-name{display:block; font-weight:700; font-size:18px; color:var(--ink)}
+  .g-link{display:block; font-size:13.5px; color:var(--ink-soft)}
+  .arrow{
+    flex:none; color:var(--orange); font-size:20px;
+    transition:transform .25s ease;
+  }
+  .game:hover .arrow,.game:focus-visible .arrow{transform:translateX(4px)}
+
+  footer{
+    margin-top:56px; text-align:center; color:var(--ink-faint); font-size:12.5px;
+    animation:rise .9s .3s ease-out both;
+  }
+  footer a{color:var(--ink-soft); text-decoration:none; border-bottom:1px solid rgba(168,149,140,.35)}
+  footer a:hover{color:var(--ink); border-bottom-color:var(--orange)}
+
+  @keyframes rise{from{opacity:0; transform:translateY(12px)} to{opacity:1; transform:none}}
+  @keyframes glow{
+    0%,100%{filter:drop-shadow(0 0 22px rgba(229,40,20,.28))}
+    50%{filter:drop-shadow(0 0 38px rgba(236,90,18,.5))}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation:none !important; transition:none !important}
+  }
+  @media (max-width:420px){
+    body{padding-top:40px}
+    header{margin-bottom:34px}
+    .game{padding:14px; gap:14px}
+  }
 </style>
 </head>
 <body>
   <div class="wrap">
     <header>
-      <h1 class="brand">YOUSH&nbsp;GAMES</h1>
-      <p class="tag">Handcrafted mobile games.</p>
+      <h1><img class="logo" src="assets/yoush-logo.png" width="720" height="444" alt="Yoush Games"></h1>
+      <p class="tag">Handcrafted mobile games</p>
     </header>
 
-    <main class="card">
+    <main>
       <h2>Our games</h2>
-      <div class="game">
-        <span class="g-name">Paint Pool</span>
-        <a href="paintpool/">Privacy policy &rarr;</a>
-      </div>
+      <ul class="games">
+        <li>
+          <a class="game" href="paintpool/">
+            <img class="g-icon" src="assets/games/paintpool.webp" width="144" height="144" alt="">
+            <span class="g-text">
+              <span class="g-name">Paint Pool</span>
+              <span class="g-link">Privacy policy</span>
+            </span>
+            <span class="arrow" aria-hidden="true">&rarr;</span>
+          </a>
+        </li>
+        <li>
+          <a class="game" href="defensetime/">
+            <img class="g-icon" src="assets/games/defensetime.webp" width="144" height="144" alt="">
+            <span class="g-text">
+              <span class="g-name">Defense Time</span>
+              <span class="g-link">Privacy policy</span>
+            </span>
+            <span class="arrow" aria-hidden="true">&rarr;</span>
+          </a>
+        </li>
+      </ul>
     </main>
 
     <footer>&copy; 2026 Yoush Games &middot; <a href="mailto:youshgamestudio@gmail.com">youshgamestudio@gmail.com</a></footer>
