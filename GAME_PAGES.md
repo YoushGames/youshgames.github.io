@@ -108,6 +108,22 @@ progress to the player's Google account and copy it to a new phone (handled by G
 see it). Don't claim the data "never leaves the device". Unity sets `allowBackup` in its generated
 manifest, so check the built manifest or Player Settings.
 
+**Only promise deletion you can actually do.** "Email us and we will delete your data" is only true
+if the game shows the player an ID we can look up. Defense Time shows the Unity **Player ID**, with
+a copy button, in its main-menu privacy panel. A new game with server-side data needs the same
+before the policy can offer deletion by email.
+
+**Handling a deletion email (Unity Gaming Services games):**
+1. Take the Player ID from the email.
+2. Unity Dashboard → the game's project → **Leaderboards** → open each leaderboard → find the
+   Player ID → delete the entry. (The Leaderboards Admin API endpoint that deletes a player's scores
+   from all live leaderboards does the same thing in one call.)
+3. Unity Dashboard → **Player Management** → search the Player ID → delete the player. This doesn't
+   remove leaderboard scores, which is why step 2 comes first.
+4. Analytics: the in-game **Delete my Data** button covers it. Analytics data is keyed by a different
+   ID, so it can't easily be deleted from an email.
+5. Reply to the player that it's done. Answer within one month (GDPR).
+
 Also tell the user about **compliance gaps in the game itself**. Don't paper over them in the policy.
 Examples found in Defense Time: analytics on by default (should be opt-in for EU), and no consent
 signal passed to the ad SDK.
