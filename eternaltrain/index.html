@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy Policy — Eternal Train</title>
+<meta name="description" content="Privacy policy for Eternal Train by Yoush Games: what data the game, its server and its partners collect, and how to control it.">
+<meta name="theme-color" content="#14093f">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preload" href="../assets/fonts/bangers-400.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+  /* Bangers (SIL Open Font License, see /assets/fonts/OFL_Bangers.txt), the game's own UI font, self-hosted */
+  @font-face{font-family:"Bangers";font-weight:400;font-display:swap;src:url("../assets/fonts/bangers-400.woff2") format("woff2")}
+
+  :root{
+    color-scheme:dark;
+    --bg:#14093f; --panel:rgba(38,33,72,.9); --edge:#4b4677;
+    --orange:#ffa41c; --orange-deep:#f0780c; --gold:#ffd54a; --orange-faint:rgba(255,164,28,.35);
+    --white:#fff8ee; --text:#e2ddf4; --text-soft:#aaa3cd;
+    --comic:"Bangers","Impact","Arial Narrow",sans-serif;
+    --r:24px;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; padding:24px 16px 56px; background:var(--bg); color:var(--text);
+    font:16px/1.7 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  /* The main menu's purple sky with its bubbles and moon; a fixed layer so it also stays put on iOS */
+  body::before{
+    content:""; position:fixed; inset:0; z-index:-1;
+    background:
+      linear-gradient(180deg, rgba(20,9,63,.1) 0%, rgba(20,9,63,.45) 50%, rgba(20,9,63,.8) 100%),
+      url("img/bg.jpg") center top / cover no-repeat, var(--bg);
+  }
+  .wrap{max-width:720px; margin:0 auto}
+
+  .home{
+    position:relative; z-index:2;
+    display:inline-flex; align-items:center; gap:8px; margin-bottom:6px;
+    font:400 17px/1 var(--comic); letter-spacing:.08em; text-transform:uppercase;
+    color:var(--text-soft); text-decoration:none; transition:color .2s;
+  }
+  .home:hover{color:var(--orange)}
+
+  header{position:relative; z-index:1; text-align:center; margin-bottom:30px; animation:rise .8s ease-out both}
+  h1{margin:0; line-height:0}
+  /* The main menu title: the train rides round behind the slowly turning globe, the plate sits on top.
+     Sizes and the train's offset are taken from the menu prefab, in units of the globe width --e. */
+  .stage{
+    --e:min(300px,52vw);
+    position:relative; width:min(540px,92vw); height:calc(var(--e) * 1.3); margin:0 auto;
+    filter:drop-shadow(0 10px 22px rgba(6,2,30,.55));
+  }
+  /* globe centre; the train rides a little further out than in the menu so more of it shows */
+  .pivot{position:absolute; left:50%; top:calc(var(--e) * .72); width:0; height:0}
+  .orbit{animation:spin 6s linear infinite}
+  .turn{animation:spin 25s linear infinite}
+  .train{
+    position:absolute; width:calc(var(--e) * 1.032); height:auto;
+    left:calc(var(--e) * -.469); top:calc(var(--e) * -.625);
+  }
+  .earth{position:absolute; width:var(--e); height:auto; left:calc(var(--e) * -.5); top:calc(var(--e) * -.5465)}
+  .plate{position:absolute; left:0; top:calc(var(--e) * .72); width:100%; height:auto; transform:translateY(-50%)}
+  .sub,.meta{position:relative; z-index:2}
+  .sub{
+    margin:4px 0 16px; color:var(--white);
+    font:400 clamp(24px,6.4vw,32px)/1.1 var(--comic); letter-spacing:.14em; text-transform:uppercase;
+    text-shadow:0 3px 0 rgba(10,5,40,.65);
+  }
+  .meta{display:flex; flex-wrap:wrap; gap:10px; justify-content:center}
+  /* Like the HUD counters: dark pill with a lighter rim */
+  .chip{
+    font:600 14px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    color:var(--text-soft); padding:9px 16px; border-radius:999px;
+    background:rgba(16,12,46,.82); box-shadow:inset 0 0 0 2px var(--edge);
+  }
+  .chip b{color:var(--orange); font-weight:700}
+
+  /* The pause / game-over panel: rounded navy slab, light rim, orange caps on top and bottom */
+  .panel{position:relative; animation:rise .8s .12s ease-out both}
+  .panel::before,.panel::after{
+    content:""; position:absolute; left:50%; transform:translateX(-50%);
+    width:min(46%,300px); height:10px; border-radius:999px; z-index:1;
+    background:linear-gradient(180deg,#ffc04a,var(--orange-deep));
+    box-shadow:0 2px 0 rgba(120,50,0,.45);
+  }
+  .panel::before{top:-5px}
+  .panel::after{bottom:-5px}
+  .card{
+    padding:34px 32px 36px; border-radius:var(--r);
+    background:var(--panel);
+    box-shadow:inset 0 0 0 3px var(--edge),0 18px 40px -18px rgba(5,2,25,.9);
+    -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px);
+  }
+
+  .intro{display:flex; gap:18px; align-items:center; margin-bottom:6px}
+  .icon{
+    flex:none; width:76px; height:76px; border-radius:18px;
+    box-shadow:0 0 0 3px var(--edge),0 8px 18px -6px rgba(5,2,25,.8);
+  }
+  .lead{font-size:17px; color:var(--white); margin:0}
+
+  h2{
+    display:flex; align-items:center; gap:12px;
+    margin:34px 0 10px;
+    font:400 25px/1.1 var(--comic); letter-spacing:.06em; text-transform:uppercase;
+    color:var(--orange);
+    text-shadow:0 2px 0 rgba(90,35,0,.55);
+  }
+  /* coin marker, like the floating coins on the main menu */
+  h2::before{
+    content:""; flex:none; width:16px; height:16px; border-radius:50%;
+    background:radial-gradient(circle at 35% 30%,#fff3b0 0%,var(--gold) 32%,#e88a0c 78%,#b85f06 100%);
+    box-shadow:0 0 10px rgba(255,190,60,.45);
+  }
+  h2::after{content:""; flex:1; height:2px; border-radius:2px; background:linear-gradient(90deg,var(--orange-faint),transparent)}
+
+  p{margin:0 0 12px}
+  strong{color:var(--white)}
+  em{color:var(--white); font-style:normal}
+  ul{list-style:none; margin:0 0 12px; padding:0}
+  li{position:relative; padding-left:24px; margin:0 0 8px}
+  li::before{
+    content:""; position:absolute; left:3px; top:.58em; width:10px; height:10px; border-radius:50%;
+    background:radial-gradient(circle at 35% 30%,#fff3b0 0%,var(--gold) 35%,#e88a0c 85%);
+  }
+
+  a{color:var(--orange); text-decoration:none; border-bottom:1px solid var(--orange-faint); transition:border-color .2s,color .2s}
+  a:hover{color:var(--white); border-bottom-color:var(--orange)}
+
+  footer{
+    margin-top:36px; text-align:center; animation:rise .8s .24s ease-out both;
+    font:400 16px/1 var(--comic); letter-spacing:.12em; text-transform:uppercase; color:var(--text-soft);
+  }
+  footer a{border:0; display:inline-flex; flex-direction:column; align-items:center; gap:10px; color:inherit}
+  footer a:hover{color:var(--orange)}
+  footer img{width:84px; height:auto; opacity:.9}
+
+  @keyframes rise{from{opacity:0; transform:translateY(10px)} to{opacity:1; transform:none}}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation:none !important; transition:none !important}
+  }
+  @media (max-width:480px){
+    body{padding-top:18px}
+    .card{padding:28px 18px 30px; border-radius:20px}
+    .intro{flex-direction:column; text-align:center}
+    .icon{width:68px; height:68px}
+    h2{font-size:22px}
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <a class="home" href="../">&larr; Yoush Games</a>
+    <header>
+      <h1 class="stage">
+        <span class="pivot orbit"><img class="train" src="img/train.webp" width="489" height="218" alt=""></span>
+        <span class="pivot turn"><img class="earth" src="img/earth.webp" width="600" height="656" alt=""></span>
+        <img class="plate" src="img/plate.webp" width="899" height="221" alt="Eternal Train">
+      </h1>
+      <p class="sub">Privacy Policy</p>
+      <div class="meta">
+        <span class="chip">Effective <b>24 October 2026</b></span>
+        <span class="chip">Publisher <b>Yoush Games, Denmark</b></span>
+      </div>
+    </header>
+
+    <div class="panel">
+      <main class="card">
+        <div class="intro">
+          <img class="icon" src="img/icon.webp" width="256" height="256" alt="">
+          <p class="lead">Eternal Train (&ldquo;the app&rdquo;) is a free game supported by ads and optional
+          purchases. This page explains what data the app, our game server and our partners collect, why, and
+          how you can control it.</p>
+        </div>
+
+        <h2>Summary</h2>
+        <ul>
+          <li>We do <strong>not</strong> ask for your email, real name, contacts, photos or location.</li>
+          <li>You sign in with <strong>Google Play Games</strong>. Your progress, coins and items are saved on our
+          game server, so they are safe and follow you to a new phone.</li>
+          <li>The <strong>leaderboards</strong> show your Google Play Games name and your scores to other
+          players.</li>
+          <li>The app shows <strong>optional rewarded video ads</strong>, which you choose to watch for in-game
+          rewards. Our ad partners use your device&rsquo;s Advertising ID.</li>
+          <li>You can <strong>buy coins and packs</strong> with real money. Payment is handled by Google Play;
+          we never see your card or billing details.</li>
+          <li>The app asks for your consent before showing personalised ads where the law requires it, and you
+          can change your choice in the game.</li>
+        </ul>
+
+        <h2>Data collected</h2>
+        <p><strong>Account:</strong> your Google Play Games player ID and gamer name, and a player ID that
+        Unity creates for your account.</p>
+        <p><strong>Game progress:</strong> your level, coins, items and settings.</p>
+        <p><strong>Runs and leaderboards:</strong> your score and other results of each run. The server checks
+        each run and purchase, and keeps a note if one is refused. Your best scores appear on the leaderboards
+        with your gamer name, <em>visible to other players</em>.</p>
+        <p><strong>Purchases:</strong> what you bought, when, and the Google Play receipt, so we can give you
+        what you bought and restore it on a new phone.</p>
+        <p><strong>Device and technical data</strong> (collected by our partners): device model, operating
+        system and version, language, app version, and your IP address (used, among other things, to estimate
+        your country).</p>
+        <p><strong>Identifiers</strong> (collected by our ad partners): your device&rsquo;s Advertising ID and
+        identifiers that the ad SDKs create for this app installation.</p>
+        <p><strong>Ad data:</strong> which ads were requested, loaded, shown, completed and clicked.</p>
+
+        <h2>How the data is used</h2>
+        <ul>
+          <li>To sign you in, save your progress and bring it to any phone where you sign in.</li>
+          <li>To show the leaderboards.</li>
+          <li>To give you what you bought and restore it.</li>
+          <li>To prevent cheating and fraud.</li>
+          <li>To show rewarded ads and give you the reward. Our ad partners may use the data to measure ads,
+          to prevent fraud and, where you allow it, to show ads that are personalised to you.</li>
+        </ul>
+        <p>We do not sell your data. We do not use it for anything other than the purposes above.</p>
+
+        <h2>Service partners</h2>
+        <ul>
+          <li><strong>Unity Technologies</strong> (game server, ads, game engine):
+          <a href="https://unity.com/legal/game-player-and-app-user-privacy-policy">Unity Game Player and App User Privacy Policy</a></li>
+          <li><strong>Google</strong> (Google Play Games sign-in, Google Play purchases):
+          <a href="https://policies.google.com/privacy">Google Privacy Policy</a></li>
+        </ul>
+        <p>Data may be processed outside your country, including in the United States, under the safeguards
+        described in these policies.</p>
+
+        <h2>Your choices</h2>
+        <p><strong>Personalised ads:</strong> The app asks for your consent to personalised ads where the law
+        requires it, and you can change your choice later in the game&rsquo;s settings. If you decline, you can
+        still watch rewarded ads, but they will not be personalised. You can also reset or delete your
+        Advertising ID, or opt out of ad personalisation, in your device settings. On most Android phones this
+        is under <em>Settings &rarr; Privacy &rarr; Ads</em> or <em>Settings &rarr; Google &rarr; Ads</em>.
+        Watching ads is always optional.</p>
+        <p><strong>Purchases</strong> are always optional. You can play the whole game without paying.</p>
+        <p><strong>Deleting your data:</strong> in the game, open <em>Settings</em>, tap <em>Copy</em> next to
+        your Player ID, and email it to us. We will delete your account, progress and leaderboard scores, and
+        confirm by email. We keep a record of purchases only where the law requires it.</p>
+        <p><strong>Data on your device:</strong> the local copy of your progress and settings is removed when
+        you uninstall the app. Your account and progress stay on the server, so they come back when you sign
+        in again. If you have Android backup turned on, Android may also include the local copy in your
+        device backup to your Google account. This is handled by Google under your own account settings, and
+        we never see it.</p>
+
+        <h2>Your rights (EU / EEA / UK)</h2>
+        <p>Yoush Games is the data controller for the app. We rely on:</p>
+        <ul>
+          <li><strong>the contract with you</strong> (providing the game you chose to play): your account,
+          saved progress, leaderboards and purchases;</li>
+          <li><strong>our legitimate interests</strong>: preventing cheating and fraud, and funding a free game
+          with non-personalised ads;</li>
+          <li><strong>your consent</strong>: personalised ads, which you can withdraw at any time in the
+          game&rsquo;s settings.</li>
+        </ul>
+        <p>You can ask us to see, correct or delete your data, or object to how we use it, by emailing us your
+        Player ID. You can also complain to your data protection authority.</p>
+
+        <h2>Retention</h2>
+        <p>Your account, progress and runs are kept while you play, until you ask us to delete them, or until
+        we stop running the game. Purchase records are kept as long as needed to restore your purchases and as
+        required by accounting law. Ad data is kept by Unity for the periods set out in its policy. Data on
+        your device stays there until you uninstall the app.</p>
+
+        <h2>Children</h2>
+        <p>The app is not directed at children under 13. We do not knowingly collect personal data from them.
+        If you believe a child has used the app and you have questions about their data, contact us.</p>
+
+        <h2>Security</h2>
+        <p>Data is sent to our server and our partners over encrypted connections, only our server code can
+        change your coins and purchases, and the data saved on your device is stored encrypted. No method of transmission or storage is completely secure, but we and our partners
+        take reasonable steps to protect it.</p>
+
+        <h2>Changes</h2>
+        <p>If this policy changes, the updated version will be posted at the same location with a new
+        effective date.</p>
+
+        <h2>Contact</h2>
+        <p>Questions or data requests:
+        <a href="mailto:youshgamestudio@gmail.com">youshgamestudio@gmail.com</a></p>
+      </main>
+    </div>
+
+    <footer>
+      <a href="../"><img src="../assets/yoush-logo.png" width="720" height="444" alt="">A Yoush Games title</a>
+    </footer>
+  </div>
+</body>
+</html>

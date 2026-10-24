@@ -53,6 +53,7 @@ Existing games:
 |---|---|---|---|---|
 | `paintpool/` | Paint Pool | Android (Kotlin), `F:\Projects\PaintPool` | Nothing (offline, no SDKs); progress in Android backup | Light: gouache paper, tinted paint blobs, the game's own fonts ← **reference for "no data" games** |
 | `defensetime/` | Defense Time | Unity, `D:\Project\DefenseTime` | Ads, analytics, leaderboard | Dark: teal HUD + hexagons ← **reference for games with SDKs** |
+| `eternaltrain/` | Eternal Train | Unity, `D:\Project\EternalTrain2` | Ads (LevelPlay + Unity Ads, rewarded); Play Games sign-in; UGS Cloud Save, public leaderboards and Cloud Code (server economy, run checks, fair-play flags); Google Play purchases; deletion by email with the Player ID (Settings, Copy button) | Purple sky, main-menu title rebuilt from layers (train circling behind a turning globe, plate on top, timings from the menu's animation clips), pause-menu panel with orange caps, coin bullets, Bangers (the game's font) |
 
 Some game repos keep their own copy of the policy text (Paint Pool: `PRIVACY_POLICY.md`). When the
 page text changes, update that copy too, so both say the same thing. (`F:\Projects\PaintPool\web\` is
@@ -245,7 +246,7 @@ the **accessibility rules** the same (section 7). Change the skin.
 - Only self-host fonts under the **SIL Open Font License** (Google Fonts are OFL or Apache). Put the
   `.woff2` files (latin subset, only the weights used) in `assets/fonts/` named `<font>-<weight>.woff2`,
   with the licence next to them as `OFL_<FontName>.txt`. Already there: Rajdhani (DT),
-  Lilita One + Varela Round (Paint Pool).
+  Lilita One + Varela Round (Paint Pool), Bangers (Eternal Train).
 - If the game itself ships OFL fonts (Paint Pool does, in `app/src/main/assets/fonts/`), use
   **the game's real fonts**, with the licence files copied from the game.
 - **Never put the game's own font files on the web** unless their licence allows web embedding.
